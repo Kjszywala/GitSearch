@@ -2,7 +2,13 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
+<div x-data="home" class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <span x-text="hello" class="text-black bg-danger rounded-1"></span>
 </div>
+
+@section Scripts
+{
+    <script src="/js/home/index.js"></script>
+}

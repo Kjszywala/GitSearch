@@ -1,9 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+			<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+	<ItemGroup>
+		<UpToDateCheckBuilt Include="wwwroot/css/site.css" Set="Css" />
+		<UpToDateCheckBuilt Include="tailwind.config.js" Set="Css" />
+	</ItemGroup>
 
+	<Target Name="Tailwind" BeforeTargets="Build" Condition="'$(Configuration)' == 'Debug'">
+		<Exec Command="npm run css:watch" />
+	</Target>
+
+	<Target Name="Tailwind" BeforeTargets="Build" Condition="'$(Configuration)' == 'Release'">
+		<Exec Command="npm run css:build" />
+	</Target>
 </Project>
