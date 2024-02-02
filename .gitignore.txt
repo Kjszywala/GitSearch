@@ -1,3 +1,1 @@
-GitSearch/bin
-GitSearch/obj
 .vs
