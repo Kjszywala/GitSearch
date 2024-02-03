@@ -5,6 +5,11 @@
 			<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\GitSearch.BusinessLogic\GitSearch.BusinessLogic.csproj" />
+	  <ProjectReference Include="..\GitSearch.DbServices\GitSearch.DbServices.csproj" />
+	</ItemGroup>
 	<ItemGroup>
 		<UpToDateCheckBuilt Include="wwwroot/css/site.css" Set="Css" />
 		<UpToDateCheckBuilt Include="tailwind.config.js" Set="Css" />

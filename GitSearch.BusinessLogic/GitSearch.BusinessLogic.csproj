@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\GitSearch.DbServices\GitSearch.DbServices.csproj" />
+    </ItemGroup>
+
 </Project>

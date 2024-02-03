@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitSearch", "GitSearch\GitSearch.csproj", "{F1299757-180C-4BA1-9605-26F74566B5E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitSearch", "GitSearch\GitSearch.csproj", "{F1299757-180C-4BA1-9605-26F74566B5E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitSearch.DbServices", "GitSearch.DbServices\GitSearch.DbServices.csproj", "{E9EBEC20-6805-4902-92B7-A2EE0D7D8573}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitSearch.DbServices", "GitSearch.DbServices\GitSearch.DbServices.csproj", "{E9EBEC20-6805-4902-92B7-A2EE0D7D8573}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitSearch.RestApi", "GitSearch.RestApi\GitSearch.RestApi.csproj", "{230CB0E1-7E0F-4D35-BFB9-B4F14990785F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitSearch.RestApi", "GitSearch.RestApi\GitSearch.RestApi.csproj", "{230CB0E1-7E0F-4D35-BFB9-B4F14990785F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitSearch.BusinessLogic", "GitSearch.BusinessLogic\GitSearch.BusinessLogic.csproj", "{C5E572B2-E110-49BB-8421-C8D63FC6D953}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitSearch.BusinessLogic", "GitSearch.BusinessLogic\GitSearch.BusinessLogic.csproj", "{C5E572B2-E110-49BB-8421-C8D63FC6D953}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitSearch.UnitTests", "GitSearch.UnitTests\GitSearch.UnitTests.csproj", "{93791883-053C-41D9-9981-3577AE0DB406}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitSearch.UnitTests", "GitSearch.UnitTests\GitSearch.UnitTests.csproj", "{15CC29DF-FF32-4DBA-A938-26D0EF846F54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{C5E572B2-E110-49BB-8421-C8D63FC6D953}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5E572B2-E110-49BB-8421-C8D63FC6D953}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5E572B2-E110-49BB-8421-C8D63FC6D953}.Release|Any CPU.Build.0 = Release|Any CPU
-		{93791883-053C-41D9-9981-3577AE0DB406}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{93791883-053C-41D9-9981-3577AE0DB406}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{93791883-053C-41D9-9981-3577AE0DB406}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{93791883-053C-41D9-9981-3577AE0DB406}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15CC29DF-FF32-4DBA-A938-26D0EF846F54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15CC29DF-FF32-4DBA-A938-26D0EF846F54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15CC29DF-FF32-4DBA-A938-26D0EF846F54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15CC29DF-FF32-4DBA-A938-26D0EF846F54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
