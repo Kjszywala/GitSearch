@@ -8,72 +8,52 @@ namespace GitSearch.BusinessLogic.Helpers
     public static class UsersHelper
     {
         /// <summary>
-        ///     Maps properties from a ApplicationUser DTO to a new ApplicationUser entity.
+        /// Maps properties from a ApplicationUser DTO to an existing ApplicationUser entity.
         /// </summary>
-        /// <param name="userDto">The ApplicationUser DTO to map properties from.</param>
-        /// <returns>A new ApplicationUser entity with mapped properties.</returns>
-        public static ApplicationUser MapUserDtoToEntity(this ApplicationUser userDto)
+        /// <param name="entity">The existing ApplicationUser entity to be updated.</param>
+        /// <param name="userDto">The ApplicationUser DTO containing updated values.</param>
+        public static void MapUserDtoToEntity(this ApplicationUser entity, ApplicationUser userDto)
         {
-            var user = new ApplicationUser()
-            {
-                UserName = userDto.UserName,
-                Logins = userDto.Logins,
-                Tokens = userDto.Tokens,
-                Claims = userDto.Claims,
-                AccessFailedCount = userDto.AccessFailedCount,
-                AccountCreationDate = userDto.AccountCreationDate,
-                AlternateEmail = userDto.AlternateEmail,
-                AlternatePhone = userDto.AlternatePhone,
-                ConcurrencyStamp = userDto.ConcurrencyStamp,
-                CreatedBy = userDto.CreatedBy,
-                CreationDate = userDto.CreationDate,
-                DateOfBirth = userDto.DateOfBirth,
-                Email = userDto.Email,
-                EmailConfirmed = userDto.EmailConfirmed,
-                FirstName = userDto.FirstName,
-                Id = userDto.Id,
-                IsActive = userDto.IsActive,
-                LastLoginDate = userDto.LastLoginDate,
-                LockoutEnabled = userDto.LockoutEnabled,
-                LockoutEnd = userDto.LockoutEnd,
-                ModificationDate = userDto.ModificationDate,
-                ModifiedBy = userDto.ModifiedBy,
-                NormalizedEmail = userDto.NormalizedEmail,
-                NormalizedUserName = userDto.NormalizedUserName,
-                Notes = userDto.Notes,
-                PasswordHash = userDto.PasswordHash,
-                PhoneNumber = userDto.PhoneNumber,
-                PhoneNumberConfirmed = userDto.PhoneNumberConfirmed,
-                ProfilePicture = userDto.ProfilePicture,
-                Roles = userDto.Roles,
-                SecondName = userDto.SecondName,
-                SecurityStamp = userDto.SecurityStamp,
-                Title = userDto.Title,
-                TwoFactorEnabled = userDto.TwoFactorEnabled,
-                UserAddressId = userDto.UserAddressId
-            };
+            entity.UserName = userDto.UserName;
+            entity.Logins = userDto.Logins;
+            entity.Tokens = userDto.Tokens;
+            entity.Claims = userDto.Claims;
+            entity.AccessFailedCount = userDto.AccessFailedCount;
+            entity.AccountCreationDate = userDto.AccountCreationDate;
+            entity.AlternateEmail = userDto.AlternateEmail;
+            entity.AlternatePhone = userDto.AlternatePhone;
+            entity.ConcurrencyStamp = userDto.ConcurrencyStamp;
+            entity.CreatedBy = userDto.CreatedBy;
+            entity.CreationDate = userDto.CreationDate;
+            entity.DateOfBirth = userDto.DateOfBirth;
+            entity.Email = userDto.Email;
+            entity.EmailConfirmed = userDto.EmailConfirmed;
+            entity.FirstName = userDto.FirstName;
+            entity.Id = userDto.Id;
+            entity.IsActive = userDto.IsActive;
+            entity.LastLoginDate = userDto.LastLoginDate;
+            entity.LockoutEnabled = userDto.LockoutEnabled;
+            entity.LockoutEnd = userDto.LockoutEnd;
+            entity.ModificationDate = userDto.ModificationDate;
+            entity.ModifiedBy = userDto.ModifiedBy;
+            entity.NormalizedEmail = userDto.NormalizedEmail;
+            entity.NormalizedUserName = userDto.NormalizedUserName;
+            entity.Notes = userDto.Notes;
+            entity.PasswordHash = userDto.PasswordHash;
+            entity.PhoneNumber = userDto.PhoneNumber;
+            entity.PhoneNumberConfirmed = userDto.PhoneNumberConfirmed;
+            entity.ProfilePicture = userDto.ProfilePicture;
+            entity.Roles = userDto.Roles;
+            entity.SecondName = userDto.SecondName;
+            entity.SecurityStamp = userDto.SecurityStamp;
+            entity.Title = userDto.Title;
+            entity.TwoFactorEnabled = userDto.TwoFactorEnabled;
 
             if (userDto.UserAddress != null)
             {
-                user.UserAddress = new UserAddress
-                {
-                    IsActive = userDto.UserAddress.IsActive,
-                    Title = userDto.UserAddress.Title,
-                    City = userDto.UserAddress.City,
-                    Country = userDto.UserAddress.Country,
-                    CreationDate = userDto.UserAddress.CreationDate,
-                    Latitude = userDto.UserAddress.Latitude,
-                    Logtitude = userDto.UserAddress.Logtitude,
-                    Id = userDto.UserAddress.Id,
-                    ModificationDate = userDto.UserAddress.ModificationDate,
-                    PostalCode = userDto.UserAddress.PostalCode,
-                    Notes = userDto.UserAddress.Notes,
-                    State = userDto.UserAddress.State,
-                    StreetAddress = userDto.UserAddress.StreetAddress
-                };
+                entity.UserAddressId = userDto.UserAddressId;
+                entity.UserAddress = userDto.UserAddress;
             }
-
-            return user;
         }
     }
 }

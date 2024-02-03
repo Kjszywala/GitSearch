@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GitSearch.BusinessLogic.Helpers;
+using GitSearch.DbServices.Models.SearchRequests;
 
 namespace GitSearch.RestApi.Controllers
 {
@@ -32,6 +33,7 @@ namespace GitSearch.RestApi.Controllers
         /// </summary>
         /// <returns>A list of all users.</returns>
         [HttpGet]
+        [Route("/user")]
         public async Task<IActionResult> GetAll()
         {
             try
@@ -52,6 +54,7 @@ namespace GitSearch.RestApi.Controllers
         /// <param name="id">The ID of the user to retrieve.</param>
         /// <returns>The user with the specified ID.</returns>
         [HttpGet]
+        [Route("/user/{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
             try
@@ -74,11 +77,40 @@ namespace GitSearch.RestApi.Controllers
         }
 
         /// <summary>
+        ///     Get user by email.
+        /// </summary>
+        /// <param name="email">The email of the user to retrieve.</param>
+        /// <returns>The user with the specified email.</returns>
+        [HttpGet]
+        [Route("/user/email/{email}")]
+        public async Task<IActionResult> GetUserByEmail(string email)
+        {
+            try
+            {
+                var user = await userManager.FindByEmailAsync(email);
+
+                if (user != null)
+                {
+                    return Ok(user);
+                }
+                else
+                {
+                    return NotFound($"User with email {email} not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
         ///     Create a new user.
         /// </summary>
         /// <param name="user">The user information for creation.</param>
         /// <returns>The created user.</returns>
         [HttpPost]
+        [Route("/user/create")]
         public async Task<IActionResult> Create(ApplicationUser user)
         {
             try
@@ -111,6 +143,7 @@ namespace GitSearch.RestApi.Controllers
         /// <param name="user">The updated user information.</param>
         /// <returns>The updated user.</returns>
         [HttpPut]
+        [Route("/user/update")]
         public async Task<IActionResult> Update(ApplicationUser user)
         {
             try
@@ -147,6 +180,7 @@ namespace GitSearch.RestApi.Controllers
         /// <param name="id">The ID of the user to delete.</param>
         /// <returns>Result of the deletion operation.</returns>
         [HttpDelete]
+        [Route("/user/delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             try
@@ -168,6 +202,75 @@ namespace GitSearch.RestApi.Controllers
                 {
                     return BadRequest(result.Errors);
                 }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        ///     Change the password for a user identified by their unique ID.
+        /// </summary>
+        /// <param name="id">The ID of the user to change the password for.</param>
+        /// <param name="newPassword">The new password to set for the user.</param>
+        /// <returns>ActionResult indicating the result of the password change operation.</returns>
+        [HttpPut]
+        [Route("/user/changePassword/{id}")]
+        public async Task<IActionResult> ChangePassword(Guid id, string newPassword)
+        {
+            try
+            {
+                var user = await userManager.FindByIdAsync(id.ToString());
+
+                if (user == null)
+                {
+                    return NotFound($"User with ID {id} not found");
+                }
+
+                var token = await userManager.GeneratePasswordResetTokenAsync(user);
+                var result = await userManager.ResetPasswordAsync(user, token, newPassword);
+
+                if (result.Succeeded)
+                {
+                    return Ok($"Password for user with ID {id} changed successfully");
+                }
+                else
+                {
+                    return BadRequest(result.Errors);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        ///     Search for users based on specified search criteria.
+        /// </summary>
+        /// <param name="searchTerm">The search criteria for filtering users.</param>
+        /// <returns>ActionResult containing the list of users matching the search criteria.</returns>
+        [HttpPost]
+        [Route("/user/search")]
+        public async Task<IActionResult> SearchUsers(UserSearchRequest searchTerm)
+        {
+            try
+            {
+                var users = await userManager.Users
+                    .Where(u =>
+                        (searchTerm.Id == null || u.Id == searchTerm.Id) &&
+                        (string.IsNullOrEmpty(searchTerm.Email) || u.Email.Contains(searchTerm.Email)) &&
+                        (string.IsNullOrEmpty(searchTerm.UserName) || u.UserName.Contains(searchTerm.UserName)) &&
+                        (!searchTerm.EmailConfirmed.HasValue || u.EmailConfirmed == searchTerm.EmailConfirmed.Value) &&
+                        (!searchTerm.TwoFactorEnabled.HasValue || u.TwoFactorEnabled == searchTerm.TwoFactorEnabled.Value) &&
+                        (string.IsNullOrEmpty(searchTerm.FirstName) || u.FirstName.Contains(searchTerm.FirstName)) &&
+                        (string.IsNullOrEmpty(searchTerm.SecondName) || u.SecondName.Contains(searchTerm.SecondName)) &&
+                        (string.IsNullOrEmpty(searchTerm.Role) || userManager.IsInRoleAsync(u, searchTerm.Role).Result) &&
+                        (!searchTerm.IsActive.HasValue || u.IsActive == searchTerm.IsActive.Value))
+                    .ToListAsync();
+
+                return Ok(users);
             }
             catch (Exception ex)
             {
