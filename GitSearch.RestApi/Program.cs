@@ -1,4 +1,6 @@
 using GitSearch.DbServices.Models;
+using GitSearch.DbServices.Models.Database;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,13 +8,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
-// Add services to the container.
+
+builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddRoleManager<RoleManager<ApplicationRole>>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+builder.Services.AddScoped<UserManager<ApplicationUser>>();
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.

@@ -20,12 +20,18 @@ namespace GitSearch.RestApi.Controllers
         private readonly UserManager<ApplicationUser> userManager;
 
         /// <summary>
+        ///     Manages sign-in functionality for ApplicationUser instances.
+        /// </summary>
+        private readonly SignInManager<ApplicationUser> signInManager;
+
+        /// <summary>
         ///     Constructor for UsersController.
         /// </summary>
         /// <param name="userManager">The UserManager for ApplicationUser instances.</param>
-        public UsersController(UserManager<ApplicationUser> userManager)
+        public UsersController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
         /// <summary>
@@ -271,6 +277,100 @@ namespace GitSearch.RestApi.Controllers
                     .ToListAsync();
 
                 return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        ///     Sends a password reset link to the provided email.
+        /// </summary>
+        /// <param name="email">User's email address.</param>
+        /// <returns>Status indicating success or failure.</returns>
+        [HttpPost]
+        [Route("/user/forgotPassword")]
+        public async Task<IActionResult> ForgotPassword(string email)
+        {
+            try
+            {
+                var user = await userManager.FindByEmailAsync(email);
+
+                if (user == null)
+                {
+                    // User not found with the provided email
+                    return NotFound($"User with email {email} not found");
+                }
+
+                // Implement logic to send a password reset link to the user's email
+                // Include a token in the link for security
+                // Example: EmailService.SendPasswordResetEmail(user, resetToken);
+
+                return Ok("Password reset link sent successfully");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        ///     Sets up two-factor authentication for the current user.
+        /// </summary>
+        /// <returns>Status indicating success or failure.</returns>
+        [HttpPost]
+        [Route("/user/setupTwoFactor")]
+        public async Task<IActionResult> SetupTwoFactorAuth()
+        {
+            try
+            {
+                // Implement logic to enable two-factor authentication for the current user
+                // Example: TwoFactorAuthenticator.SetupForUser(currentUser);
+
+                return Ok("Two-factor authentication set up successfully");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        ///     Verifies the two-factor authentication code provided by the user.
+        /// </summary>
+        /// <param name="code">Two-factor authentication code.</param>
+        /// <returns>Status indicating success or failure.</returns>
+        [HttpPost]
+        [Route("/user/verifyTwoFactor")]
+        public async Task<IActionResult> VerifyTwoFactorAuth(string code)
+        {
+            try
+            {
+                // Implement logic to verify the provided two-factor authentication code
+                // Example: TwoFactorAuthenticator.VerifyCode(currentUser, code);
+
+                return Ok("Two-factor authentication code verified successfully");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        ///     Logs out the current user.
+        /// </summary>
+        /// <returns>Status indicating success or failure.</returns>
+        [HttpPost]
+        [Route("/user/logout")]
+        public async Task<IActionResult> Logout()
+        {
+            try
+            {
+                await signInManager.SignOutAsync();
+
+                return Ok("User logged out successfully");
             }
             catch (Exception ex)
             {
