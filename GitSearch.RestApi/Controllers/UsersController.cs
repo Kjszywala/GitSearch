@@ -6,17 +6,31 @@ using GitSearch.BusinessLogic.Helpers;
 
 namespace GitSearch.RestApi.Controllers
 {
+    /// <summary>
+    ///     Controller for managing user-related operations.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
+        /// <summary>
+        ///     User manager for managing ApplicationUser instances.
+        /// </summary>
         private readonly UserManager<ApplicationUser> userManager;
 
+        /// <summary>
+        ///     Constructor for UsersController.
+        /// </summary>
+        /// <param name="userManager">The UserManager for ApplicationUser instances.</param>
         public UsersController(UserManager<ApplicationUser> userManager)
         {
             this.userManager = userManager;
         }
 
+        /// <summary>
+        ///     Get all users.
+        /// </summary>
+        /// <returns>A list of all users.</returns>
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -32,6 +46,11 @@ namespace GitSearch.RestApi.Controllers
             }
         }
 
+        /// <summary>
+        ///     Get user by ID.
+        /// </summary>
+        /// <param name="id">The ID of the user to retrieve.</param>
+        /// <returns>The user with the specified ID.</returns>
         [HttpGet]
         public async Task<IActionResult> Get(Guid id)
         {
@@ -54,6 +73,11 @@ namespace GitSearch.RestApi.Controllers
             }
         }
 
+        /// <summary>
+        ///     Create a new user.
+        /// </summary>
+        /// <param name="user">The user information for creation.</param>
+        /// <returns>The created user.</returns>
         [HttpPost]
         public async Task<IActionResult> Create(ApplicationUser user)
         {
@@ -81,6 +105,11 @@ namespace GitSearch.RestApi.Controllers
             }
         }
 
+        /// <summary>
+        ///     Update an existing user.
+        /// </summary>
+        /// <param name="user">The updated user information.</param>
+        /// <returns>The updated user.</returns>
         [HttpPut]
         public async Task<IActionResult> Update(ApplicationUser user)
         {
@@ -112,6 +141,11 @@ namespace GitSearch.RestApi.Controllers
             }
         }
 
+        /// <summary>
+        ///     Delete a user by ID.
+        /// </summary>
+        /// <param name="id">The ID of the user to delete.</param>
+        /// <returns>Result of the deletion operation.</returns>
         [HttpDelete]
         public async Task<IActionResult> Delete(Guid id)
         {
