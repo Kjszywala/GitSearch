@@ -20,6 +20,8 @@ namespace GitSearch.DbServices.Models
             this.configuration = configuration;
         }
 
+        public virtual DbSet<ErrorLog> ErrorLogs { get; set; }
+
         /// <inheritdoc />
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
