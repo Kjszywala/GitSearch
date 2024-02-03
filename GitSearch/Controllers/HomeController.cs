@@ -1,6 +1,7 @@
 ﻿using GitSearch.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.Extensions.Logging;
 
 namespace GitSearch.Controllers
 {
